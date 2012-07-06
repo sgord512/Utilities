@@ -16,7 +16,7 @@ version:             0.1.0.0
 synopsis:            Haskell utility function library
 
 -- A longer description of the package.
--- description:         
+description:         Just a handy collection of utility functions that I use in many of my other Haskell projects. 
 
 -- The license under which the package is released.
 license:             MIT
