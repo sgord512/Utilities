@@ -3,13 +3,26 @@ module Util.Unicode where
 import Data.Char
 import Numeric
 
--- | Unicode Little box 
+-- | Logical \'and\'
+and = '\x2227'
+-- | Locical \'or\'
+or = '\x2228'
+-- | Logical conditional
+conditional = '\x2192'
+-- | Logical biconditional 
+biconditional = '\x2194'
+-- | Big box
 box = '\x2B1C'
+-- | Set membership
 memberOf = '\x2208'
 notMemberOf = '\x2209'
+-- | Three dots, also known as \"therefore\"
 because = '\x2235'
+-- | Colon equals \':=\', variable assignment in old-fashioned languages
 assign = '\x2254'
+-- | Checkmark
 check = '\x2713'
+-- | Null set
 emptySet = '\x2205'
 
 startItalic = fst $ head $ readHex "1D434"
