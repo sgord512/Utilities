@@ -1,6 +1,7 @@
 module Util.String where
 
 import Data.Char
+import Data.List ( intersperse )
 
 data Color = Black | Red | Green | Yellow | Blue | Magenta | Cyan | White deriving (Enum, Bounded)
 
@@ -32,4 +33,7 @@ angleBrackets str = "<" ++ str ++ ">"
 
 stringOrNone :: String -> String
 stringOrNone str | all isSpace str = "None"
-            | otherwise = str
+                 | otherwise = str
+            
+joinWith :: String -> [String] -> String
+joinWith sep ls = concat $ intersperse sep ls

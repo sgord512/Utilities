@@ -31,5 +31,3 @@ randomElement :: (RandomGen g) => g -> [a] -> (a, g)
 randomElement gen ls = let (ix, gen') = randomR (0, length ls - 1) gen
                        in (ls !! ix, gen')                    
 
-joinWith :: String -> [String] -> String
-joinWith sep ls = concat $ intersperse sep ls

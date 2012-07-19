@@ -14,3 +14,9 @@ unfoldrM f state = do
       vals <- unfoldrM f state'
       return $ (val:vals)
 
+untilM :: (Monad m) => (a -> m Bool) -> (a -> m a) -> a -> m a
+untilM pred f x = do
+  break <- pred x
+  if break
+    then return x
+    else f x >>= untilM pred f

@@ -25,9 +25,24 @@ check = '\x2713'
 -- | Null set
 emptySet = '\x2205'
 
-startItalic = fst $ head $ readHex "1D434"
+startItalic = hex "1D434"
 
 upperA = 65
+
+subscriptZero = '\x2080'
+
+superscriptZero = '\x2070'
+superscriptTwo = '\x00B2'
+superscriptThree = '\x00B3'
+
+superscriptDigit :: Integer -> Char
+superscriptDigit 2 = superscriptTwo
+superscriptDigit 3 = superscriptThree                     
+superscriptDigit d = chr $ fromIntegral d + fromEnum superscriptZero
+
+subscriptDigit :: Integer -> Char
+subscriptDigit d = chr $ fromIntegral d + fromEnum subscriptZero
+
 
 -- | Map character of Arabic alphabet to italic script character, using unicode code point 'startItalic' as \'A\'
 italic :: Char -> Char
@@ -36,3 +51,5 @@ italic c = chr $ (ord c - upperA) + startItalic
 -- | Convert 'Char' to 'String' by creating a singleton list. (I don't know if this is a good idea or not.)
 c2s :: Char -> String 
 c2s c = [c]
+
+hex = fst . head . readHex
