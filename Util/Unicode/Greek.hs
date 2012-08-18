@@ -28,9 +28,8 @@ data Letter
  | Psi 
  | Omega
  deriving (Bounded, Enum, Eq, Ord, Read, Show)
-          
-lowerAlpha = '\x03B1'          
 
+lowerAlpha = '\x03B1'          
 upperAlpha = '\x0391'
    
 uppercaseLetter :: Letter -> Char

@@ -21,5 +21,8 @@ instance (Display a, Display b) => Display (a, b) where
 instance (Display a, Display b) => Display (Map.Map a b) where
   display m = unlines $ map display (Map.assocs m)
 
+instance Display Integer where
+  display = show   
+
 displayMapWith :: (Display a, Display b) => Map.Map a b -> (a -> b -> String) -> String
 displayMapWith m f = unlines $ map (uncurry f) (Map.assocs m) 

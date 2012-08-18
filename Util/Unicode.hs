@@ -24,22 +24,23 @@ assign = '\x2254'
 check = '\x2713'
 -- | Null set
 emptySet = '\x2205'
+-- | Prime 
+prime = '\x2032'
+-- | Caret 
+caret = '\x2038'
 
 startItalic = hex "1D434"
-
 upperA = 65
-
-subscriptZero = '\x2080'
 
 superscriptZero = '\x2070'
 superscriptTwo = '\x00B2'
 superscriptThree = '\x00B3'
-
 superscriptDigit :: Integer -> Char
 superscriptDigit 2 = superscriptTwo
 superscriptDigit 3 = superscriptThree                     
 superscriptDigit d = chr $ fromIntegral d + fromEnum superscriptZero
 
+subscriptZero = '\x2080'
 subscriptDigit :: Integer -> Char
 subscriptDigit d = chr $ fromIntegral d + fromEnum subscriptZero
 

@@ -9,8 +9,10 @@ data Alignment = Left | Right | Center
 
 splitAtChar :: Char -> String -> [String]
 splitAtChar c [] = []
-splitAtChar c xs = let (chunk, (char:rest)) = break (== c) xs
-                   in chunk : splitAtChar c rest        
+splitAtChar c xs = 
+  case break (== c) xs of
+    (chunk, []) -> chunk : []
+    (chunk, (_:rest)) -> chunk : splitAtChar c rest
                       
 padStringsToLength :: Int -> [String] -> [String]                      
 padStringsToLength n strs = strs ++ (replicate (n - length strs) "")
@@ -20,10 +22,9 @@ alignAtChar c strs = let strRows = map (splitAtChar c) strs
                          maxRowLength = maximum $ map length strRows
                          strRows' = map (padStringsToLength maxRowLength) strRows
                          strCols = transpose strRows'
-                         paddedCols = map (padToMaximumLength Before) strCols
+                         paddedCols = map (padToMaximumLength Before ' ') strCols
                          paddedRows = transpose paddedCols
                      in map (joinWith $ ' ':c:' ':[]) paddedRows
-                         
 
 inTwoColumns :: [(String, String)] -> Int -> String
 inTwoColumns list n = let (as, bs) = unzip list
@@ -31,8 +32,8 @@ inTwoColumns list n = let (as, bs) = unzip list
                           spacedAs = map (padEndUntilLength ' ' (maxA + n)) as
                       in unlines $ zipWith (++) spacedAs bs
                     
-padToMaximumLength :: RelativePosition -> [String] -> [String]                         
-padToMaximumLength pos ls = map (padFunc pos ' ' len) ls
+padToMaximumLength :: RelativePosition -> Char -> [String] -> [String]                         
+padToMaximumLength pos ch ls = map (padFunc pos ch len) ls
   where len = maxLength ls
         padFunc :: RelativePosition -> Char -> Int -> String -> String
         padFunc Before = padFrontUntilLength

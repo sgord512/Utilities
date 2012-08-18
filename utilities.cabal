@@ -10,7 +10,7 @@ name:                utilities
 -- PVP summary:      +-+------- breaking API changes
 --                   | | +----- non-breaking API additions
 --                   | | | +--- code changes with no API change
-version:             0.2.0.0
+version:             0.3.0.0
 
 -- A short (one-line) description of the package.
 synopsis:            Haskell utility function library
@@ -44,7 +44,21 @@ cabal-version:       >=1.8
 
 library
   -- Modules exported by the library.
-  exposed-modules:     Util.Debug, Util.Display, Util.List, Util.Monad, Util.Numeric, Util.String, Util.String.Align, Util.Tuple, Util.Unicode, Util.Unicode.Greek
+  exposed-modules:
+    Util.Data,
+    Util.Debug,
+    Util.Display,
+    Util.Either,
+    Util.List,
+    Util.Monad,
+    Util.Numeric,
+    Util.Prelude,
+    Util.String,
+    Util.String.Align,
+    Util.Tuple,
+    Util.Unicode,
+    Util.Unicode.Greek,
+    Util.Unicode.Latin
   
   -- Modules included in this library but not exported.
   -- other-modules:       

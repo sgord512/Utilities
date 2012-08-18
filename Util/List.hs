@@ -2,7 +2,7 @@ module Util.List where
 
 import Data.List
 import System.Random
-
+import Util.Prelude
 
 -- | Exactly analogous to forM in "Control.Monad". Equivalent to 'map' with the arguments reversed.
 for :: [a] -> (a -> b) -> [b]
@@ -31,3 +31,29 @@ randomElement :: (RandomGen g) => g -> [a] -> (a, g)
 randomElement gen ls = let (ix, gen') = randomR (0, length ls - 1) gen
                        in (ls !! ix, gen')                    
 
+-- | Split a list into 2 lists, the first containing the elements with even indices, and the second with odd indices
+evensAndOdds :: [a] -> ([a], [a])
+evensAndOdds = alternate e o ([], [])
+  where e (es, os) e' = (e':es, os)
+        o (es, os) o' = (es, o':os)
+
+-- | Recursively fold over a list twice, alternating between the first and second folds at every element
+alternate :: (b -> a -> b) -> (b -> a -> b) -> b -> [a] -> b
+alternate f g init [] = init
+alternate f g init xs = f' init xs
+  where f' d (x:xs) = if null xs then f d x else g' (f d x) xs
+        g' d (x:xs) = if null xs then g d x else f' (g d x) xs
+
+-- | The items in the domain list that are not in the second argument list 
+complementDomain :: Eq a => [a] -> [a] -> [a]
+complementDomain d = (d \\)
+
+-- | Remove the minimum element of a list, according to a user provided comparison function
+removeMinBy :: Comparison a -> [a] -> Maybe (a, [a])
+removeMinBy comp [] = Nothing
+removeMinBy comp (x:xs) = Just $ removeMinBy' comp x xs []
+  where removeMinBy' :: Comparison a -> a -> [a] -> [a] -> (a, [a])
+        removeMinBy' comp curr [] visited = (curr, visited)
+        removeMinBy' comp curr (x:xs) visited = case x `comp` curr of 
+          LT -> removeMinBy' comp x xs (curr:visited)
+          _ -> removeMinBy' comp curr xs (x:visited)
